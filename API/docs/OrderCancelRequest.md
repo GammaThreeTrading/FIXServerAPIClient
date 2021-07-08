@@ -1,0 +1,16 @@
+# IO.Swagger.Model.OrderCancelRequest
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ExternalId** | **string** |  | [optional] 
+**NewOrderSingleId** | **int?** |  | [optional] 
+**ClOrdId** | **string** |  | [optional] 
+**Tif** | **string** |  | [optional] 
+**OrdType** | **string** |  | [optional] 
+**Price** | **double?** |  | [optional] 
+**Price2** | **double?** |  | [optional] 
+**XtraTags** | [**List&lt;Xtags&gt;**](Xtags.md) |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

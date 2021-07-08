@@ -1,0 +1,97 @@
+﻿using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FormTestClient
+{
+    public partial class Form1 : Form
+    {
+        private BindingSource bindingSource1 = new BindingSource();
+
+        private string Instance = string.Empty;
+
+        public Form1()
+        {
+            InitializeComponent();
+            txtBoxServer.Text = Properties.Settings.Default.Server;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            
+            
+
+                
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+<<<<<<< HEAD
+            
+=======
+            InstanceApi instanceApi = new InstanceApi(txtBoxServer.Text);
+
+            bindingSource1.Clear();
+
+
+            Instance = instanceApi.V1InstanceGet();
+            lblInstance.Text = Instance;
+            lblInstance.Update();
+
+>>>>>>> a9459b6020e4bf2b6dfeb12b618c961d43189792
+            SessionsApi sessionAPi = new SessionsApi(txtBoxServer.Text);
+
+            Properties.Settings.Default.Server = txtBoxServer.Text;
+            Properties.Settings.Default.Save();
+            lstBoxSessions.Items.Clear();
+            List<SessionInfo> info = sessionAPi.V1SessionsInstanceGet("TESTMGD");
+
+            foreach(SessionInfo i in info)
+            {
+                lstBoxSessions.Items.Add(i.SessionName);
+
+            }
+
+            if(lstBoxSessions.Items.Count > 0)
+            {
+                lstBoxSessions.SelectedIndex = 0;
+
+
+
+                NewOrderSingleApi ordersApi = new NewOrderSingleApi(txtBoxServer.Text);
+
+                List<NewOrderSingleDetails> ords = ordersApi.V1NewOrderSingleOrdersOutInstanceSessionGet(Instance, lstBoxSessions.SelectedItem.ToString());
+
+
+            }
+
+            lstBoxSessions.Update();
+        }
+
+        private void btnSendOrder_Click(object sender, EventArgs e)
+        {
+            if(lstBoxSessions.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a valid FIX Session");
+                lstBoxSessions.Focus();
+                return;
+            }
+            string server = txtBoxServer.Text;
+            string i = lblInstance.Text;
+            string s = lstBoxSessions.SelectedItem.ToString();
+            OrderForm of = new OrderForm(server, i, s);
+            of.ShowDialog();
+        }
+    }
+}
